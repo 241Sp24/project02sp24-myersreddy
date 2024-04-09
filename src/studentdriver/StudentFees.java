@@ -4,8 +4,8 @@ public abstract class StudentFees {
     private String studentName;
     private int studentID;
     private boolean isEnrolled;
-    private int CREDITS_PER_COURSE = 3;
-    private double PER_CREDIT_FEE = 543.50;
+    int CREDITS_PER_COURSE = 3;
+    double PER_CREDIT_FEE = 543.50;
 
     public StudentFees(String studentName, int studentID, boolean isEnrolled) {
         this.studentName = studentName;

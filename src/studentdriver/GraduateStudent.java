@@ -11,13 +11,13 @@ public class GraduateStudent extends StudentFees{
         super(studentName, studetnID, isEnrolled);
         this.isGraduateAssistant = isGraduateAssistant;
         this.graduateAssistantType = graduateAssitantType;
-        this.coursesEnrolled = coursesEnrolled;
+        
     }
 
     public GraduateStudent(String studentName, int studetnID, boolean isEnrolled, 
     boolean coursesEnrolled) {
         super(studentName, studetnID, isEnrolled);
-        this.coursesEnrolled = coursesEnrolled;
+        
     }
 
     public boolean isIsGraduateAssistant(){
@@ -32,17 +32,17 @@ public class GraduateStudent extends StudentFees{
         if(isIsGraduateAssistant() == true) {
             if(graduateAssistantType == "half") {
                 double tuitionFee = ((((getCoursesEnrolled() * CREDITS_PER_COURSE) * PER_CREDIT_FEE)
-                 + ADDITIONAL_FEE) / 2.0);
+                 + ADDITIONAL_FEES) / 2.0);
             }
             if(graduateAssistantType == "full") {
                 double tuitionFee = ADDITIONAL_FEES;
+                return tuitionFee;
             }
-            return tuitionFee;
         }
-        else {
-            return double tuitionFee = (((getCoursesEnrolled() * CREDITS_PER_COURSE) * PER_CREDIT_FEE)
-            + ADDITIONAL_FEE);
-        }
+        
+        return (((getCoursesEnrolled() * CREDITS_PER_COURSE) * PER_CREDIT_FEE)
+        + ADDITIONAL_FEES);
+        
         
     }
     @Override
