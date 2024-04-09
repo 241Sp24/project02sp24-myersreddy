@@ -10,6 +10,9 @@ public class UGStudent extends StudentFees{
     public UGStudent(String studentName, int studentID, boolean isEnrolled, 
     boolean hasScholarship, double scholarshipAmount, int coursesEnrolled) {
         super(studentName, studentID, isEnrolled);
+        this.hasScholarship = hasScholarship;
+        this.scholarshipAmount = scholarshipAmount;
+        this.coursesEnrolled = coursesEnrolled;
     }
 
     public boolean isHasScholarship(){
@@ -24,7 +27,6 @@ public class UGStudent extends StudentFees{
         return coursesEnrolled;
     }
 
-    //Not finished
     public double getPayableAmount() {
         return ((((getCoursesEnrolled() * CREDITS_PER_COURSE) * PER_CREDIT_FEE) + ADDITIONAL_FEE) 
         - scholarshipAmount);
@@ -34,6 +36,6 @@ public class UGStudent extends StudentFees{
     public String toString() {
         return super.toString() + "\nScholarship: " + isHasScholarship() 
         + "\nScholarship amount: " + getScholarshipAmount() + "\nCourses enrolled :" 
-        + getCoursesEnrolled() + "\nPayable amount: " + getPayableAmount();
+        + getCoursesEnrolled() + "\nPayable amount: " + getPayableAmount() + "\n";
     }
 }

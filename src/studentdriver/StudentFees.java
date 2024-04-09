@@ -7,7 +7,11 @@ public abstract class StudentFees {
     private int CREDITS_PER_COURSE = 3;
     private double PER_CREDIT_FEE = 543.50;
 
-    public StudentFees(String studentName, int studentID, boolean isEnrolled) {}
+    public StudentFees(String studentName, int studentID, boolean isEnrolled) {
+        this.studentName = studentName;
+        this.studentID = studentID;
+        this.isEnrolled = isEnrolled;
+    }
     
     public String getStudentName(){
         return studentName;
@@ -41,10 +45,9 @@ public abstract class StudentFees {
         return CREDITS_PER_COURSE * PER_CREDIT_FEE;
     }
 
-    //May need to remake
     @Override
     public String toString() {
         return "Student Name: " + getStudentName() + "\nStudent id: "
-         + getStudentID() + "\nEnrolled: " + isIsEnrolled();
+         + getStudentID() + "\nEnrolled: " + isIsEnrolled() + "\n";
     }
 }
