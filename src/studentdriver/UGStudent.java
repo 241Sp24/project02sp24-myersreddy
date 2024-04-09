@@ -2,10 +2,10 @@ package studentdriver;
 
 
 public class UGStudent extends StudentFees{
-    double scholarshipAmount;
-    int coursesEnrolled;
-    boolean hasScholarship;
-    double ADDITIONAL_FEE = 820.70;
+    private double scholarshipAmount;
+    private int coursesEnrolled;
+    private boolean hasScholarship;
+    private double ADDITIONAL_FEE = 820.70;
 
     public UGStudent(String studentName, int studentID, boolean isEnrolled, 
     boolean hasScholarship, double scholarshipAmount, int coursesEnrolled) {
@@ -26,12 +26,14 @@ public class UGStudent extends StudentFees{
 
     //Not finished
     public double getPayableAmount() {
-        return (((CREDITS_PER_COURSE * PER_CREDIT_FEE) + ADDITIONAL_FEE) 
+        return ((((getCoursesEnrolled() * CREDITS_PER_COURSE) * PER_CREDIT_FEE) + ADDITIONAL_FEE) 
         - scholarshipAmount);
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        return super.toString() + "\nScholarship: " + isHasScholarship() 
+        + "\nScholarship amount: " + getScholarshipAmount() + "\nCourses enrolled :" 
+        + getCoursesEnrolled() + "\nPayable amount: " + getPayableAmount();
     }
 }

@@ -1,15 +1,14 @@
 package studentdriver;
 
 public abstract class StudentFees {
-    String studentName;
-    int studentID;
-    boolean isEnrolled;
-    int CREDITS_PER_COURSE = 3;
-    double PER_CREDIT_FEE = 543.50;
+    private String studentName;
+    private int studentID;
+    private boolean isEnrolled;
+    private int CREDITS_PER_COURSE = 3;
+    private double PER_CREDIT_FEE = 543.50;
 
-    public StudentFees(String studentName, int studentID, boolean isEnrolled) {
-
-    }
+    public StudentFees(String studentName, int studentID, boolean isEnrolled) {}
+    
     public String getStudentName(){
         return studentName;
     }
@@ -45,6 +44,7 @@ public abstract class StudentFees {
     //May need to remake
     @Override
     public String toString() {
-        return super.toString();
+        return "Student Name: " + getStudentName() + "\nStudent id: "
+         + getStudentID() + "\nEnrolled: " + isIsEnrolled();
     }
 }
