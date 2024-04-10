@@ -7,10 +7,11 @@ public class UGStudent extends StudentFee{
     private int coursesEnrolled;
     private boolean hasScholarship;
     private double ADDITIONAL_FEE = 820.70;
-    //
+
+    //Constructor
     public UGStudent(String studentName, int studentID, boolean isEnrolled, 
            boolean hasScholarship, double scholarshipAmount, int coursesEnrolled){
-        //
+        //Super implementation
         super(studentName, studentID, isEnrolled);
         this.hasScholarship = hasScholarship;
         this.scholarshipAmount = scholarshipAmount;
@@ -21,12 +22,16 @@ public class UGStudent extends StudentFee{
     public boolean isHasScholarship(){
         return hasScholarship;
     }
+
     public double getScholarshipAmount(){
         return scholarshipAmount;
     }
+
     public int getCoursesEnrolled(){
         return coursesEnrolled;
     }
+
+    //Methods attained from StudentFees class
     @Override
     public double getPayableAmount(){
         double tuition = ((coursesEnrolled * super.getCREDITS_PER_COURSE()) 
@@ -36,6 +41,7 @@ public class UGStudent extends StudentFee{
         }
         return tuition;
     }
+
     @Override
     public String toString(){
         return "Student Name: " + super.getStudentName() 

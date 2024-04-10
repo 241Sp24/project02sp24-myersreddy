@@ -16,6 +16,7 @@ public class StudentDriver {
 
         System.out.println();
         
+        //User input
         System.out.print("Enter the No of UG Students: ");
         int UG = input.nextInt();
         
@@ -27,7 +28,7 @@ public class StudentDriver {
         
         System.out.println();
         
-        
+        //Initialization of objects
         StudentFee[] students = new StudentFee[12];
         File file = new File("input.csv");
         Scanner fileInput = new Scanner(file);
@@ -35,6 +36,8 @@ public class StudentDriver {
         String[] string = new String[6];
         int index = 0;
         int y = 0;
+
+        //Collects data from file
         while(fileInput.hasNext()) {
             string = fileInput.next().split(",");
             
@@ -65,6 +68,7 @@ public class StudentDriver {
         
         fileInput.close();
         
+        //Initilization for variables within for-loop
         int scholarship = 0;
         int UGCourseNum = 0;
         int gradAssist = 0;
@@ -74,7 +78,8 @@ public class StudentDriver {
         double onlineFees = 0.0;
         y = 0;
         for (StudentFee s: students) {
-            //
+
+            //Decides and outputs lists
             if(y == 0){
                 System.out.println("*******Undergraduate students list*******");
             }
@@ -84,8 +89,9 @@ public class StudentDriver {
             if(y == UG + Graduate){
                 System.out.println("*******Online students list*******");
             }
+
             //Calculate and display average of UG students fee, number of students
-            //who got scholarship, total no of courses enrolled by all UG students.
+            //who got scholarship, and total no of courses enrolled by all UG students.
             if(s instanceof UGStudent){
                 System.out.println(s);
                 underFees += ((UGStudent) s).getPayableAmount();
@@ -95,7 +101,7 @@ public class StudentDriver {
                 }
             }
             //Calculate and display average of graduate student’s fee, number of 
-            //students who got graduate assistantship, total number of courses enrolled by graduate students.
+            //students who got graduate assistantship, and total number of courses enrolled by graduate students.
             else if(s instanceof GraduateStudent){
                 System.out.println(s);
                 gradFees += ((GraduateStudent) s).getPayableAmount();
@@ -112,7 +118,7 @@ public class StudentDriver {
             System.out.println();
             y += 1;
         }
-        
+        //Output of student details
         System.out.println("**********Undergraduate Students details**********");
         System.out.printf("Average Student fee: %.2f\n", underFees / UG);
         System.out.println("Scholarship count: " + scholarship);
