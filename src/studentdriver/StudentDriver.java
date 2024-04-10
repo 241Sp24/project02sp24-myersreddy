@@ -1,33 +1,131 @@
-
 package studentdriver;
-
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class StudentDriver {
 
-    public static void main(String[] args) throws Exception{
+    /**
+     * @param args the command line arguments
+     * @throws java.io.FileNotFoundException
+     */
+    public static void main(String[] args) throws FileNotFoundException {
         System.out.println("Project02");
 
-        StudentFees[] students = new StudentFees[12];
+        Scanner input = new Scanner(System.in);
         
-        File inputFile = new File("input.csv");
-        Scanner scanner = new Scanner(inputFile);
-        Scanner userInput = new Scanner(System.in);
 
-        System.out.println("Enter the no of UG students: ");
-        int noOfUG = userInput.nextInt();
-        System.out.println("Enter the no of Graduate students: ");
-        int noOfGrad = userInput.nextInt();
-        System.out.println("Enter the no of online students: ");
-        int noOfOnline = userInput.nextInt();
+        System.out.println();
+        
+        System.out.print("Enter the No of UG Students: ");
+        int UG = input.nextInt();
+        
+        System.out.print("Enter the No of Graduate Students: ");
+        int Graduate = input.nextInt();
+        
+        System.out.print("Enter the No of Online Students: ");
+        int Online = input.nextInt();
+        
+        System.out.println();
+        
+        
+        StudentFee[] students = new StudentFee[12];
+        File file = new File("input.csv");
+        Scanner fileInput = new Scanner(file);
 
-        //Undergraduate print
-        if(scanner.hasNext()) {
-            for(int i = 0; i < (noOfUG * 6); i++) {
-                students[i] = new UGStudent("", 0, null, null, 0.0, 0); 
+        String[] string = new String[6];
+        int index = 0;
+        int y = 0;
+        while(fileInput.hasNext()) {
+            string = fileInput.next().split(",");
+            
+            if(y < UG){
+                students[index] = new UGStudent(string[1], Integer.parseInt(string[0]), 
+                            Boolean.parseBoolean(string[2]), Boolean.parseBoolean(string[4]),
+                            Double.parseDouble(string[5]), Integer.parseInt(string[3]));
             }
+            else if(y >= UG && y < UG + Graduate){
+                if(string[4].equals("false")){
+                    students[index] = new GraduateStudent(string[1], Integer.parseInt(string[0]), 
+                            Boolean.parseBoolean(string[2]), Boolean.parseBoolean(string[4]),
+                            Integer.parseInt(string[3]));
+                }
+                else{
+                    students[index] = new GraduateStudent(string[1], Integer.parseInt(string[0]), 
+                            Boolean.parseBoolean(string[2]), Boolean.parseBoolean(string[4]),
+                            string[5], Integer.parseInt(string[3]));
+                }
+            }
+            else if(y >= UG + Graduate){
+                students[index] = new OnlineStudent(string[1],Integer.parseInt(string[0]),
+                        Boolean.parseBoolean(string[2]),Integer.parseInt(string[3]));
+            }
+            y += 1;
+            index += 1;
         }
+        
+        fileInput.close();
+        
+        int scholarship = 0;
+        int UGCourseNum = 0;
+        int gradAssist = 0;
+        int gradCourseNum = 0;
+        double underFees = 0.0;
+        double gradFees = 0.0;
+        double onlineFees = 0.0;
+        y = 0;
+        for (StudentFee s: students) {
+            //
+            if(y == 0){
+                System.out.println("*******Undergraduate students list*******");
+            }
+            if(y == UG){
+                System.out.println("*******Graduate students list*******");
+            }
+            if(y == UG + Graduate){
+                System.out.println("*******Online students list*******");
+            }
+            //Calculate and display average of UG students fee, number of students
+            //who got scholarship, total no of courses enrolled by all UG students.
+            if(s instanceof UGStudent){
+                System.out.println(s);
+                underFees += ((UGStudent) s).getPayableAmount();
+                UGCourseNum += ((UGStudent) s).getCoursesEnrolled();
+                if(((UGStudent) s).isHasScholarship()){
+                    scholarship += 1;
+                }
+            }
+            //Calculate and display average of graduate student’s fee, number of 
+            //students who got graduate assistantship, total number of courses enrolled by graduate students.
+            else if(s instanceof GraduateStudent){
+                System.out.println(s);
+                gradFees += ((GraduateStudent) s).getPayableAmount();
+                gradCourseNum += ((GraduateStudent) s).getCoursesEnrolled();
+                if(((GraduateStudent) s).isIsGraduateAssistant()){
+                    gradAssist += 1;
+                }
+            }
+            //Calculate and display average of online student’s fee.
+            else if(s instanceof OnlineStudent){
+                System.out.println(s);
+                onlineFees += ((OnlineStudent) s).getPayableAmount();
+            }
+            System.out.println();
+            y += 1;
+        }
+        
+        System.out.println("**********Undergraduate Students details**********");
+        System.out.printf("Average Student fee: %.2f\n", underFees / UG);
+        System.out.println("Scholarship count: " + scholarship);
+        System.out.println("Total number of courses: " + UGCourseNum);
+        System.out.println();
+        
+        System.out.println("**********Graduate Students details**********");
+        System.out.printf("Average Student fee: %.2f\n", gradFees / Graduate);
+        System.out.println("Graduate Assistantship count: " + gradAssist);
+        System.out.println("Total number of courses: " + gradCourseNum);
+        System.out.println();
+        
+        System.out.println("**********Online Students details**********");
+        System.out.printf("Average Student fee: %.2f\n", onlineFees / Online);
     }
-
 }
